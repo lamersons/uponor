@@ -1,0 +1,17 @@
+FROM centos:latest
+
+MAINTAINER MiZo(mihails.zotovs@accenture.com)
+
+RUN yum -y erase vim-minimal yum-plugin-ovl iputils libss && \
+    yum -y install openssh openssh-server openssh-clients && \
+    yum -y install sudo \
+    yum -y clean all
+
+ADD entry.sh /root/entry.sh
+COPY sshd_sftp_config /root/sshd_sftp_config
+# COPY sshd_sftp_config /etc/ssh/sshd_sftp_config
+
+RUN mkdir /sftp_root
+RUN chmod +x /root/entry.sh
+
+CMD /root/entry.sh

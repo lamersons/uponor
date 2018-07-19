@@ -1,0 +1,22 @@
+version: '3'
+services:
+  server:
+    build: .
+    image: sftp:latest
+    container_name: sft_server
+    volumes:
+      - sftp_data:/sftp
+      - sftp_conf:/etc/ssh
+      - sftp_keys:/root/.ssh
+      - sftp_home:/home
+    ports:
+      - "22:22"
+      - "2200:2200"
+    expose:
+      - "22"
+      - "2200"
+volumes:
+  sftp_data:
+  sftp_conf:
+  sftp_keys:
+  sftp_home:
